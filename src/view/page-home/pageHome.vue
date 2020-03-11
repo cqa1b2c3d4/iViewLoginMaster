@@ -22,7 +22,7 @@
         name: "pageHome",
         data: function () {
             return{
-
+              testData: ''
 
             }
         },
