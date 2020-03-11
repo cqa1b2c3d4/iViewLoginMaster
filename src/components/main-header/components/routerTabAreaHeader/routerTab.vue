@@ -4,15 +4,15 @@
       <Icon type="ios-paper" />
       首页
     </MenuItem>
-    <MenuItem name="2" to="/home/APPDownload">
+    <MenuItem name="2" to="/APPDownload">
       <Icon type="md-download" />
       APP下载
     </MenuItem>
-    <MenuItem name="3" to="/home/chargeCenter">
+    <MenuItem name="3" to="/chargeCenter">
       <Icon type="logo-usd" />
       充值中心
     </MenuItem>
-    <MenuItem name="4" to="/page">
+    <MenuItem name="4" to="/socketTest">
       <Icon type="ios-cog-outline" />
       socket测试页
     </MenuItem>
@@ -26,7 +26,8 @@
             return {
                 theme: 'light'
             }
-        }
+        },
+
     }
 </script>
 

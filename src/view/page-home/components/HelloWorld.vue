@@ -71,7 +71,7 @@
       </li>
       <li>
         <a :href="page">
-          test-page
+          socket test page
         </a>
       </li>
       <li>
@@ -91,8 +91,8 @@
         data() {
             return {
                 msg: 'Welcome to Your Vue.js App',
-                login: '/#/login',
-                page:'/#/page'
+                login: '/#/',
+                page:'/#/socketTest'
             }
         },
         computed: {

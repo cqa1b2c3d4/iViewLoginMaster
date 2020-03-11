@@ -68,7 +68,7 @@
             let player = new ckplayer(this.videoObject);
         },
         methods:{
-            ...mapMutations(['socketConn']),
+            ...mapMutations(['socketConn','changeLogin']),
             submitForm(){
                 var _msgList = document.getElementById('messages');
                 var data = {client: '客户端1',msg: this.inputValue};

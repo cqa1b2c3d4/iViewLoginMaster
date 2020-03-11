@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="footer-container">
   <Row>
     <Col span="8"><h2 class="contact-msg">联系方式</h2></Col>
   </Row>
@@ -11,7 +11,7 @@
     <Divider type="vertical" />
     <Col span="4"><p>邮箱: sun860811qq.com</p></Col>
     <Divider type="vertical" />
-    <Col span="4"><p>地址: 重庆市永川区和顺大道799号</p></Col>
+    <Col span="5"><p>地址: 重庆市永川区和顺大道799号</p></Col>
   </Row>
 </div>
   <div id="doc-ft">
@@ -38,6 +38,11 @@
 </script>
 
 <style scoped>
+  .footer-container{
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+  }
   .contact-msg {
     font-size: 20px;
     height: 20px;
@@ -52,5 +57,13 @@
     font-size: 14px;
   }
 
-
+  #doc-ft {
+    width: 100%;
+  }
+  #doc-ft .container {
+    margin: 0 auto;
+    text-align: center;
+  }
+  #doc-ft .container p {
+  }
 </style>

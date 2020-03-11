@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Button type="primary" @click="modal1 = true">点击登录</Button>
+    <Button type="text" @click="modal1 = true">{{userName}}</Button>
     <Modal
       v-model="modal1"
       title="Common Modal dialog box title"
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-    import LoginForm from '@/components/loginAreaHeader/login-form'; // 驼峰命名法
+    import loginForm from "./login-form"; // 驼峰命名法
     import {mapMutations} from 'vuex';
 
     export default {
@@ -37,8 +37,20 @@
                 }
             }
         },
+        computed: {
+            userName() {
+                let token = sessionStorage.getItem('TOKEN');
+                if (token === null || token === '') {
+                    return "登录";
+                } else {
+                    this.login = 'javascript:void(0)';
+                    console.log(this.$store.state);
+                    return this.$store.state.nickName;
+                }
+            }
+        },
         components: {
-            LoginForm
+            loginForm
         },
         methods: {
             ...mapMutations(['changeLogin']),
@@ -75,5 +87,6 @@
 </script>
 
 <style scoped>
-  @import '/src/components/main-header/components/loginAreaHeader/login/login.less';
+  @import "login/login.less";
+
 </style>

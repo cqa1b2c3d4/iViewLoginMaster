@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import page from "@/components/page";
+import pageDownload from "../view/page-app-download/pageDownload";
+import pageCharge from "../view/page-charge-in/pageCharge";
+import pageHome from "../view/page-home/pageHome";
+import pageSocket from "../view/page-socket-test/pageSocket";
 
 Vue.use(Router);
 
@@ -9,23 +11,23 @@ const router = new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'pageHome',
+      component: pageHome
     },
     {
       path: '/socketTest',
-      name: 'page',
-      component: socketTest
+      name: 'pageSocket',
+      component: pageSocket
     },
     {
       path: '/chargeCenter',
-      name: 'chargeCenter',
-      component: chargeCenter
+      name: 'pageCharge',
+      component: pageCharge
     },
     {
       path: '/APPDownload',
-      name: 'APPDownload',
-      component: APPDownload
+      name: 'pageDownload',
+      component: pageDownload
     }
   ]
 });
@@ -34,11 +36,11 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   var token = sessionStorage.getItem('TOKEN');
   console.log(token);
-  if (to.path === '/login') {
+  if (to.path === '/socketTest') {
     if (token === null || token === '') {
-      next();
-    } else {
       next('/');
+    } else {
+      next();
     }
   } else {
     if (token === null || token === '') {

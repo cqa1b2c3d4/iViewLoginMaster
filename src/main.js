@@ -22,16 +22,6 @@ Vue.use(new VueSocketIO({
   }
 }));
 
-Vue.component('myComponent',{
-  data: function(){
-    return{
-      count: 0,
-    }
-  },
-  template: '<h2>this is the title fo my-component</h2><button v-on:click="count++">点击计算点击次数：{{count}}次</button> '
-
-});
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

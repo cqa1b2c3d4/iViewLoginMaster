@@ -18,7 +18,8 @@ const store = new Vuex.Store({
       stream: '',
       equipment: '',
       token: ''
-    }
+    },
+    activeName: '1',
   },
 
   mutations: {
@@ -42,6 +43,9 @@ const store = new Vuex.Store({
       state.userInfo.equipment = 'pc';
       state.userInfo.token = data.userinfo.token;
 
+    },
+    changeActiveTab(state, data){
+      state.activeName = data.activeName;
     }
   }
 });

@@ -2,6 +2,10 @@
   <div>
     <main-header></main-header>
     <p>this is an charge page(这是一个充值页面)</p>
+    <br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br>
     <main-footer></main-footer>
   </div>
 </template>

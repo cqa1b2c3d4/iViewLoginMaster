@@ -1,8 +1,5 @@
 <template>
 	<div id="app">
-    <my-component></my-component>
-    <my-component></my-component>
-    <my-component></my-component>
 		<router-view></router-view>
 	</div>
 </template>
@@ -24,6 +21,6 @@
 		height: 100%;
 		margin: 0;
 		padding: 0;
-		background-color: #ff22ff;
+		background-color: #ffffff;
 	}
 </style>
