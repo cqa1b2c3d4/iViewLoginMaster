@@ -1,14 +1,15 @@
 <template>
   <div>
-    <Button type="text" @click="modal1 = true">{{userName}}</Button>
+    <Button class="focus-none" type="text" @click="userName ==='登录'? modal1 = true:false">{{userName}}</Button>
     <Modal
       v-model="modal1"
       title="Common Modal dialog box title"
       @on-ok="ok"
       @on-cancel="cancel">
+      <div slot="header"></div>
       <div class="login">
         <div class="login-con">
-          <Card icon="log-in" title="欢迎登录" :bordered="false">
+          <Card icon="log-in" title="欢迎登录" :bordered="false" dis-hover>
             <div class="form-con">
               <login-form @on-success-valid="handleSubmit"></login-form>
               <p class="login-tip">输入任意用户名和密码即可</p>
@@ -16,6 +17,7 @@
           </Card>
         </div>
       </div>
+      <div slot="footer"></div>
     </Modal>
   </div>
 </template>
@@ -78,7 +80,8 @@
                         _this.$Message.error((_data.msg === "" || _data.msg === undefined) ? response.data.msg : _data.msg);
                     }
                     console.log(_info[0].token);
-                    _this.$router.push("/") // 跳转到首页
+                    location.reload();
+                    /*_this.$router.push("/");*/ // 跳转到首页
                 }).catch((error) => {
                 })
             }
@@ -89,4 +92,7 @@
 <style scoped>
   @import "login/login.less";
 
+  .focus-none:focus{
+    box-shadow: none;
+  }
 </style>

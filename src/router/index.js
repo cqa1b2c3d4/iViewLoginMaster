@@ -8,6 +8,7 @@ import pageSocket from "../view/page-socket-test/pageSocket";
 Vue.use(Router);
 
 const router = new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',

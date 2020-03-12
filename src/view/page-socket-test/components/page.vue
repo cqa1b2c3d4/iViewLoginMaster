@@ -3,7 +3,7 @@
   <p>this is the test page of {{id}}</p>
   <div id="video"></div>
   <ul id="messages"></ul>
-  <form action="" @submit="submitForm">
+  <form action="" @submit.prevent="submitForm">
     <input id="m" autocomplete="off" v-model="inputValue" /><button>Send</button>
   </form>
 </div>
@@ -133,7 +133,7 @@
 <style scoped>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font: 13px Helvetica, Arial; }
-  form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+  form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; z-index: 999}
   form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
   form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
   #messages { list-style-type: none; margin: 0; padding: 0; }

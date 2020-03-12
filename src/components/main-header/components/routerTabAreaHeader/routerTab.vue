@@ -1,5 +1,5 @@
 <template>
-  <Menu mode="horizontal" :theme="theme" active-name="1">
+  <Menu mode="horizontal" @on-select="changeSelectName" :theme="theme" :active-name="onSelectName">
     <MenuItem name="1" to="/">
       <Icon type="ios-paper" />
       首页
@@ -24,9 +24,24 @@
         name: "routerTab",
         data () {
             return {
-                theme: 'light'
+                theme: 'light',
+                onSelectName:'1'
             }
         },
+
+        mounted(){
+            let activeName = this.$store.state.activeName;
+            console.log('选择的路由tab是: '+activeName);
+            this.onSelectName = activeName;
+        },
+
+        methods:{
+            changeSelectName(name){
+                this.$store.commit('changeActiveTab',name);
+                this.onSelectName=this.$store.state.activeName;
+            }
+
+        }
 
     }
 </script>

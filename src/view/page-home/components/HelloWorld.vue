@@ -45,8 +45,7 @@
         </a>
       </li>
       <li>
-        <a
-          :href="login">
+        <a>
           {{userName}}
         </a>
       </li>
@@ -70,7 +69,7 @@
         </a>
       </li>
       <li>
-        <a :href="page">
+        <a @click="resetTabName">
           socket test page
         </a>
       </li>
@@ -91,8 +90,6 @@
         data() {
             return {
                 msg: 'Welcome to Your Vue.js App',
-                login: '/#/',
-                page:'/#/socketTest'
             }
         },
         computed: {
@@ -122,6 +119,10 @@
 
                 }
 
+            },
+            resetTabName(){
+                this.$store.commit('changeActiveTab','4')
+                this.$router.push('/socketTest')
             }
         }
     }

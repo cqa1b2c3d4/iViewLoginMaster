@@ -40,7 +40,7 @@
 <style scoped>
   .footer-container{
     width: 100%;
-    position: fixed;
+    position: absolute;
     bottom: 0;
   }
   .contact-msg {

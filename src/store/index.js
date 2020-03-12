@@ -45,7 +45,7 @@ const store = new Vuex.Store({
 
     },
     changeActiveTab(state, data){
-      state.activeName = data.activeName;
+      state.activeName = data;
     }
   }
 });
