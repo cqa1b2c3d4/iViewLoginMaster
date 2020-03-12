@@ -1,7 +1,9 @@
 <template>
   <div>
-    <Dropdown trigger="click" style="margin-left: 20px">
-      <Button class="focus-none" type="text" @click="btnClick">{{userName}}<Icon :type="switchUpAndDown"></Icon></Button>
+    <Dropdown trigger="click" style="margin-left: 20px" @on-visible-change="visible">
+      <Button class="focus-none" type="text" @click="btnClick">{{userName}}
+        <Icon :type="switchUpAndDown"></Icon>
+      </Button>
       <DropdownMenu v-if="isLogin" slot="list">
         <DropdownItem>个人中心</DropdownItem>
         <DropdownItem>我的贵族</DropdownItem>
@@ -17,7 +19,7 @@
           <Card icon="log-in" title="欢迎登录" :bordered="false" dis-hover>
             <div class="form-con">
               <login-form @on-success-valid="handleSubmit"></login-form>
-              <p class="login-tip">输入任意用户名和密码即可</p>
+              <p class="login-tip">请输入正确的用户名和密码</p>
             </div>
           </Card>
         </div>
@@ -47,10 +49,8 @@
                 }
             }
         },
-        computed: {
-
-        },
-        mounted(){
+        computed: {},
+        mounted() {
             let token = sessionStorage.getItem('TOKEN');
             if (token === null || token === '') {
                 this.userName = "登录";
@@ -88,22 +88,28 @@
                 }).catch((error) => {
                 })
             },
-            btnClick(){
-                if(this.userName ==='登录'){
+            btnClick() {
+                if (this.userName === '登录') {
                     this.modal1 = true;
-                    this.switchUpAndDown = 'ios-arrow-up';
                     this.isLogin = false;
-                }else {
+                } else {
                     this.isLogin = true;
-                    if (this.switchUpAndDown === 'ios-arrow-down'){
-                        this.switchUpAndDown = 'ios-arrow-up';
-                    }else{
-                        this.switchUpAndDown = 'ios-arrow-down';
-                    }
                     return false;
                 }
             },
-            btnLogout(){
+            visible(status) {
+                if (this.isLogin === true) {
+                    if (status === true) {
+                        this.switchUpAndDown = 'ios-arrow-down';
+                    } else {
+                        this.switchUpAndDown = 'ios-arrow-up';
+                    }
+                } else {
+                    this.switchUpAndDown = 'ios-arrow-up';
+                }
+
+            },
+            btnLogout() {
                 sessionStorage.clear();
                 location.reload();
             }
@@ -114,7 +120,7 @@
 <style scoped>
   @import "login/login.less";
 
-  .focus-none:focus{
+  .focus-none:focus {
     box-shadow: none;
   }
 </style>
