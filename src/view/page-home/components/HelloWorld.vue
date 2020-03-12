@@ -1,73 +1,8 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
+    <div id="video"></div>
+    <h2>测试链接</h2>
     <ul>
-      <li>
-        <a
-          href="https://vuejs.org"
-          target="_blank"
-        >
-          Core Docs
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://forum.vuejs.org"
-          target="_blank"
-        >
-          Forum
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://chat.vuejs.org"
-          target="_blank"
-        >
-          Community Chat
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://twitter.com/vuejs"
-          target="_blank"
-        >
-          Twitter
-        </a>
-      </li>
-      <br>
-      <li>
-        <a
-          href="http://vuejs-templates.github.io/webpack/"
-          target="_blank"
-        >
-          Docs for This Template
-        </a>
-      </li>
-      <li>
-        <a>
-          {{userName}}
-        </a>
-      </li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li>
-        <a
-          href="http://router.vuejs.org/"
-          target="_blank"
-        >
-          vue-router
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vuex.vuejs.org/"
-          target="_blank"
-        >
-          vuex
-        </a>
-      </li>
       <li>
         <a @click="resetTabName">
           socket test page
@@ -89,7 +24,17 @@
         name: 'helloWorld',
         data() {
             return {
-                msg: 'Welcome to Your Vue.js App',
+                videoObject: {
+                    container: "#video", //“#”代表容器的ID，“.”或“”代表容器的class
+                    variable: "player", //该属性必需设置，值等于下面的new chplayer()的对象
+                    autoplay: true, //自动播放
+                    live: false,
+                    loop: true,
+                    debug: true, //是否开启调试模式
+                    drag: 'start', //拖动的属性
+                    seek: 0, //默认跳转的时间
+                    video: "" //视频地址(必填)
+                },
             }
         },
         computed: {
@@ -103,6 +48,10 @@
                     return this.$store.state.nickName;
                 }
             }
+        },
+        mounted(){
+            this.videoObject.video = 'https://qiniu.00yuyin.com/233333.mp4';
+            let player = new ckplayer(this.videoObject);
         },
         methods: {
             tokenTest() {
@@ -130,6 +79,15 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+  .hello{
+    background: url(/static/images/home/index_live_bg.png) no-repeat;
+    background-size: 100% 500px;
+    max-width: 1200px;
+    min-width: 800px;
+    margin: 0 auto;
+  }
+
   h1, h2 {
     font-weight: normal;
   }
@@ -146,5 +104,10 @@
 
   a {
     color: #42b983;
+  }
+  #video {
+    margin: 0 auto;
+    width: 70%;
+    height: 500px;
   }
 </style>

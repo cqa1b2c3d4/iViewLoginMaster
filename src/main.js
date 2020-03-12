@@ -8,9 +8,11 @@ import ViewUI from 'view-design';
 import 'view-design/dist/styles/iview.css';
 import apiAll from "./api";
 import VueSocketIO from 'vue-socket.io';
+import VueCookies from 'vue-cookies';
 
 Vue.prototype.$api = apiAll;
 Vue.use(ViewUI);
+Vue.use(VueCookies);
 Vue.config.productionTip = false;
 Vue.use(new VueSocketIO({
   debug: true,

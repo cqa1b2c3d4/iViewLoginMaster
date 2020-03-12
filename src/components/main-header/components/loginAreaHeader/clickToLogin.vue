@@ -1,11 +1,16 @@
 <template>
   <div>
-    <Button class="focus-none" type="text" @click="userName ==='登录'? modal1 = true:false">{{userName}}</Button>
-    <Modal
-      v-model="modal1"
-      title="Common Modal dialog box title"
-      @on-ok="ok"
-      @on-cancel="cancel">
+    <Dropdown trigger="click" style="margin-left: 20px">
+      <Button class="focus-none" type="text" @click="btnClick">{{userName}}<Icon :type="switchUpAndDown"></Icon></Button>
+      <DropdownMenu v-if="isLogin" slot="list">
+        <DropdownItem>个人中心</DropdownItem>
+        <DropdownItem>我的贵族</DropdownItem>
+        <DropdownItem>我的消息</DropdownItem>
+        <DropdownItem>我的直播</DropdownItem>
+        <DropdownItem><span @click="btnLogout">退出登录</span></DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
+    <Modal v-model="modal1">
       <div slot="header"></div>
       <div class="login">
         <div class="login-con">
@@ -31,6 +36,9 @@
         data() {
             return {
                 modal1: false,
+                isLogin: false,
+                userName: '登录',
+                switchUpAndDown: 'ios-arrow-up',
                 userInfo: {
                     nickName: '',
                     userAvatar: '',
@@ -40,15 +48,16 @@
             }
         },
         computed: {
-            userName() {
-                let token = sessionStorage.getItem('TOKEN');
-                if (token === null || token === '') {
-                    return "登录";
-                } else {
-                    this.login = 'javascript:void(0)';
-                    console.log(this.$store.state);
-                    return this.$store.state.nickName;
-                }
+
+        },
+        mounted(){
+            let token = sessionStorage.getItem('TOKEN');
+            if (token === null || token === '') {
+                this.userName = "登录";
+                this.isLogin = true;
+            } else {
+                this.userName = this.$store.state.nickName;
+                this.isLogin = false;
             }
         },
         components: {
@@ -56,12 +65,6 @@
         },
         methods: {
             ...mapMutations(['changeLogin']),
-            ok() {
-                this.$Message.info('Clicked ok');
-            },
-            cancel() {
-                this.$Message.info('Clicked cancel');
-            },
             handleSubmit({username, password}) {
                 let _this = this;
                 this.$api.api_login.post_user_login_api(
@@ -84,6 +87,25 @@
                     /*_this.$router.push("/");*/ // 跳转到首页
                 }).catch((error) => {
                 })
+            },
+            btnClick(){
+                if(this.userName ==='登录'){
+                    this.modal1 = true;
+                    this.switchUpAndDown = 'ios-arrow-up';
+                    this.isLogin = false;
+                }else {
+                    this.isLogin = true;
+                    if (this.switchUpAndDown === 'ios-arrow-down'){
+                        this.switchUpAndDown = 'ios-arrow-up';
+                    }else{
+                        this.switchUpAndDown = 'ios-arrow-down';
+                    }
+                    return false;
+                }
+            },
+            btnLogout(){
+                sessionStorage.clear();
+                location.reload();
             }
         }
     }

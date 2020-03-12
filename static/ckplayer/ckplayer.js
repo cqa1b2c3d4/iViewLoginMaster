@@ -519,7 +519,7 @@ function ckplayerConfig() {
 					}
 
 				}
-			} 
+			}
 			else if(this.typeString(video)=='array'){//如果视频地址是数组
 				if (!this.isUndefined(typeof(video[0].length))) { //如果视频地址是二维数组
 					this.VA = video;
@@ -1229,7 +1229,7 @@ function ckplayerConfig() {
 			fullID = 'full' + randomS,//全屏按钮
 			escFullID = 'escfull' + randomS,//退出全屏按钮
 			muteID = 'mute' + randomS,//静音按钮
-			escMuteID = 'escmute' + randomS,//取消静音按钮				
+			escMuteID = 'escmute' + randomS,//取消静音按钮
 			volumeID = 'volume' + randomS,//音量调节框容器
 			volumeDbgID = 'volumedbg' + randomS,//音量调节框容器背景
 			volumeBgID = 'volumebg' + randomS,//音量调节框背景层
@@ -1282,7 +1282,7 @@ function ckplayerConfig() {
 			adLink = document.createElement('div'),
 			adPauseClose = document.createElement('div');
 			/*
-				定义各节点的样式 
+				定义各节点的样式
 			*/
 			controlBarBg.className = controlBarBgID;
 			controlBar.className = controlBarID;
@@ -1329,7 +1329,7 @@ function ckplayerConfig() {
 				timeInto = this.getNowDate();
 			}
 			/*
-				构建控制栏的内容 
+				构建控制栏的内容
 			*/
 			html += '<div class="' + playID + '" data-title="' + thisTemp.language['play'] + '">' + this.newCanvas(playID, bWidth, bHeight) + '</div>'; //播放按钮
 			html += '<div class="' + pauseID + '" data-title="' + thisTemp.language['pause'] + '">' + this.newCanvas(pauseID, bWidth, bHeight) + '</div>'; //暂停按钮
@@ -3393,7 +3393,7 @@ function ckplayerConfig() {
 				if (html) {
 					html += '<p>' + nowD + '</p>';
 				}
-				
+
 				this.CB['subtitles'].innerHTML = nowD;
 				this.CB['subtitlesP'].innerHTML = html;
 				this.css([this.CB['subtitles'], this.CB['subtitlesLine']], 'display', 'block');
@@ -3514,7 +3514,7 @@ function ckplayerConfig() {
 			this.trackShowAgain();
 		},
 		/*
-			当切换字幕时的动作 
+			当切换字幕时的动作
 		*/
 		newSubtitles:function(title){
 			var vArr = this.vars['cktrack'];//字幕数组
@@ -4685,7 +4685,7 @@ function ckplayerConfig() {
 			}
 		},
 		/*
-			新建其它广告 
+			新建其它广告
 		*/
 		newAdOther: function(i) {
 			var thisTemp = this;
@@ -5346,7 +5346,7 @@ function ckplayerConfig() {
 							sn: ''
 						}
 					}
-					
+
 				}
 			};
 			this.ajax(obj);
@@ -5775,7 +5775,7 @@ function ckplayerConfig() {
 			}
 		},
 		/*
-		 下面列出只有flashplayer里支持的 
+		 下面列出只有flashplayer里支持的
 		 */
 		videoRotation: function(n) {
 			if (!this.loaded) {
@@ -6063,14 +6063,14 @@ function ckplayerConfig() {
 			}
 			else{
 				var temp=this.ckplayerConfig;
-				for(var index in arguments) {  
+				for(var index in arguments) {
 			        try{
 			        	temp=temp[arguments[index]];
 			        }
 			        catch(error){
 			        	temp=null;
 			        }
-			    }; 
+			    };
 				return temp;
 			}
 		},
@@ -6224,7 +6224,7 @@ function ckplayerConfig() {
 			//}
 		},
 		/*
-			判断浏览器是否支持flashplayer 
+			判断浏览器是否支持flashplayer
 		*/
 		checkShockwaveFlash:function(){
 			if(window.ActiveXObject) {
@@ -6391,7 +6391,7 @@ function ckplayerConfig() {
 		/*
 			操作动作结束
 			-----------------------------------------------------------------------
-			
+
 			接口函数
 			获取元数据部分
 		*/
@@ -6553,7 +6553,7 @@ function ckplayerConfig() {
 	            "vAlign": "right",
 	            "offsetX": -60,
 	            "offsetY": -60
-	        } 
+	        }
 			*/
 			var pw = this.PD.offsetWidth,
 			ph = this.PD.offsetHeight;
@@ -8058,7 +8058,7 @@ function ckplayerConfig() {
 					try{
 						xhr.send(null); //get方式则填null
 					}
-					catch(event){callback(); }	
+					catch(event){callback(); }
 				}
 				if (obj.async === false) { //同步
 					callback();
@@ -8618,7 +8618,7 @@ function ckplayerConfig() {
 		*/
 		log: function(val) {
 			try {
-				console.log(val);
+				/*console.log(val);*/
 			} catch(e) {}
 		},
 		/*

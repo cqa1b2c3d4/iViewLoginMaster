@@ -20,15 +20,16 @@
                 innerLi:'',
                 enterChat: 1,
                 videoObject: {
-                    width: 200, // 宽度，也可以支持百分比(不过父元素宽度要有)
-                    height: 350, // 高度，也可以支持百分比
                     container: "#video", //“#”代表容器的ID，“.”或“”代表容器的class
                     variable: "player", //该属性必需设置，值等于下面的new chplayer()的对象
                     autoplay: true, //自动播放
-                    live: true,
+                    live: false,
+                    loop: true,
+                    debug: true, //是否开启调试模式
+                    drag: 'start', //拖动的属性
+                    seek: 0, //默认跳转的时间
                     video: "" //视频地址(必填)
                 }
-
             }
         },
         sockets: {// 通过vue实例对象sockets实现组件中的事件监听
@@ -62,10 +63,40 @@
         mounted() {
             console.log('page mounted');
             this.$socket.emit('connect'); //在这里触发connect事件
-            this.$socket.emit('conn', {uid:'737985',roomnum: '34029',nickname: 'beixin',stream:'34029_1563438344',equipment: 'pc',token:'d8d846630c6c9b58bd734da148ad3d2b'});
-
+            /*this.$socket.emit('conn', {uid:'737985',roomnum: '34029',nickname: 'beixin',stream:'34029_1563438344',equipment: 'pc',token:'d8d846630c6c9b58bd734da148ad3d2b'});
+*/
             this.videoObject.video = 'https://qiniu.00yuyin.com/233333.mp4';
             let player = new ckplayer(this.videoObject);
+
+            /*var videoObject = {
+                container: '#video', //容器的ID或className
+                variable: 'player', //播放函数名称
+                loaded: 'loadedHandler', //当播放器加载后执行的函数
+                loop: true, //播放结束是否循环播放
+                config: '', //指定配置函数
+                debug: true, //是否开启调试模式
+                drag: 'start', //拖动的属性
+                seek: 0, //默认跳转的时间
+                promptSpot: [ //提示点
+                    {
+                        words: '提示点文字01',
+                        time: 30
+                    },
+                    {
+                        words: '提示点文字02',
+                        time: 150
+                    }
+                ],
+                video: [
+                    ['http://img.ksbbs.com/asset/Mon_1703/05cacb4e02f9d9e.mp4', 'video/mp4', '中文标清', 0],
+                    ['http://img.ksbbs.com/asset/Mon_1703/d0897b4e9ddd9a5.mp4', 'video/mp4', '中文高清', 0],
+                    ['http://img.ksbbs.com/asset/Mon_1703/eb048d7839442d0.mp4', 'video/mp4', '英文高清', 10],
+                    ['http://img.ksbbs.com/asset/Mon_1703/d30e02a5626c066.mp4', 'video/mp4', '英文超清', 0]
+                ]
+            };
+            // 定义一个对象
+            var player = new ckplayer(videoObject);*/
+
         },
         methods:{
             ...mapMutations(['socketConn','changeLogin']),
@@ -75,7 +106,7 @@
                 if (data.msg === ''){
                     return false;
                 }
-                this.$socket.emit('sendOutMsg',data);
+                /*this.$socket.emit('sendOutMsg',data);*/
                 this.innerLi += `<li>${data.client}:${data.msg}</li>`;
                 _msgList.innerHTML=this.innerLi;
 
@@ -94,7 +125,7 @@
 
                 var _msg = '{"msg":[{"_method_":"SendMsg","action":0,"ct":"'+chatmsg+'","msgtype":"2","tougood":"","touid":"","touname":"","ugood":"34029","uid":"34029","uname":"beixin","level":"1","vip_type":"0","liangname":"0","usertype":"30","guard_type":"0"}],"retcode":"000000","retmsg":"OK"}';
                 //发送聊天信息
-                this.$socket.emit('broadcast',_msg);
+                /*this.$socket.emit('broadcast',_msg);*/
                 this.inputValue = '';
                 return false;
 
@@ -140,7 +171,8 @@
   #messages li { padding: 5px 10px; }
   #messages li:nth-child(odd) { background: #eee; }
   #video {
-    width: 200px;
-    height: 350px;
+    margin: 0 auto;
+    width: 80%;
+    height: 500px;
   }
 </style>
