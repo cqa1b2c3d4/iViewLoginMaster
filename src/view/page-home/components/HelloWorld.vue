@@ -1,6 +1,13 @@
 <template>
   <div class="hello">
-    <div id="video"></div>
+    <div>
+      <div id="video"></div>
+      <div>
+        <ul>
+          <li v-for=" liveItem in liveList"></li>
+        </ul>
+      </div>
+    </div>
     <h2>测试链接</h2>
     <ul>
       <li>
@@ -49,7 +56,7 @@
                 }
             }
         },
-        mounted(){
+        mounted() {
             this.videoObject.video = 'https://qiniu.00yuyin.com/233333.mp4';
             let player = new ckplayer(this.videoObject);
         },
@@ -69,8 +76,8 @@
                 }
 
             },
-            resetTabName(){
-                this.$store.commit('changeActiveTab','4')
+            resetTabName() {
+                this.$store.commit('changeActiveTab', '4')
                 this.$router.push('/socketTest')
             }
         }
@@ -80,7 +87,7 @@
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-  .hello{
+  .hello {
     background: url(/static/images/home/index_live_bg.png) no-repeat;
     background-size: 100% 500px;
     max-width: 1200px;
@@ -105,6 +112,7 @@
   a {
     color: #42b983;
   }
+
   #video {
     margin: 0 auto;
     width: 70%;

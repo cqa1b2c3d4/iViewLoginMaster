@@ -1,21 +1,25 @@
 <template>
   <Form ref="loginForm" :model="form" :rules="ruleslogin" @keydown.enter.native="handleSubmit">
     <FormItem prop="username">
-      <Input v-model="form.username" placeholder="请输入用户名">
-				<span slot="prepend">
-				<Icon :size="16" type="ios-person"></Icon>
-				</span>
-      </Input>
+      <label>
+        <Input v-model="form.username" placeholder="请输入用户名" @on-blur="checkStatus">
+          <span slot="prepend">
+          <Icon :size="16" type="ios-person"></Icon>
+          </span>
+        </Input>
+      </label>
     </FormItem>
     <FormItem prop="password">
-      <Input type="password" v-model="form.password" placeholder="请输入密码">
-				<span slot="prepend">
-				<Icon :size="14" type="md-lock"></Icon>
-				</span>
-      </Input>
+      <label>
+        <Input type="password" v-model="form.password" placeholder="请输入密码">
+          <span slot="prepend">
+          <Icon :size="14" type="md-lock"></Icon>
+          </span>
+        </Input>
+      </label>
     </FormItem>
     <FormItem>
-      <Checkbox v-model="rememberLoginName" @on-change="checkStatus()">记住用户名</Checkbox>
+      <Checkbox v-model="rememberLoginName" @on-change="checkStatus">记住用户名</Checkbox>
     </FormItem>
     <FormItem>
       <Button @click="handleSubmit" type="primary" long>登录</Button>
@@ -70,7 +74,7 @@
                 console.log(this.rememberLoginName);//不存在的cookie返回： null
                 var remName = this.rememberLoginName;
                 if (remName === true){
-                    this.$cookies.set('userName', this.form.username,2*24*60*60*1000);
+                    this.$cookies.set('userName', this.form.username,'2d');
                 }else{
                     this.$cookies.isKey('userName')?this.$cookies.remove('userName'):'';
                 }
