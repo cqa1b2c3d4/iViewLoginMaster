@@ -20,6 +20,7 @@ const store = new Vuex.Store({
       token: ''
     },
     activeName: '1',
+    routersNoAuthor: ['/','/APPDownload','/chargeCenter','/socketTest']
   },
 
   mutations: {

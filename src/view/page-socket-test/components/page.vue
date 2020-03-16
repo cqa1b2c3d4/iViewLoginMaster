@@ -1,7 +1,7 @@
 <template>
 <div>
   <p>this is the test page of {{id}}</p>
-  <div id="video"></div>
+  <div id="video2"></div>
   <ul id="messages"></ul>
   <form action="" @submit.prevent="submitForm">
     <input id="m" autocomplete="off" v-model="inputValue" /><button>Send</button>
@@ -20,14 +20,14 @@
                 innerLi:'',
                 enterChat: 1,
                 videoObject: {
-                    container: "#video", //“#”代表容器的ID，“.”或“”代表容器的class
+                    container: "#video2", //“#”代表容器的ID，“.”或“”代表容器的class
                     variable: "player", //该属性必需设置，值等于下面的new chplayer()的对象
                     autoplay: true, //自动播放
-                    live: false,
-                    loop: true,
+                    live: true,
+/*                    loop: true,
                     debug: true, //是否开启调试模式
                     drag: 'start', //拖动的属性
-                    seek: 0, //默认跳转的时间
+                    seek: 0, //默认跳转的时间*/
                     video: "" //视频地址(必填)
                 }
             }
@@ -65,8 +65,8 @@
             this.$socket.emit('connect'); //在这里触发connect事件
             /*this.$socket.emit('conn', {uid:'737985',roomnum: '34029',nickname: 'beixin',stream:'34029_1563438344',equipment: 'pc',token:'d8d846630c6c9b58bd734da148ad3d2b'});
 */
-            this.videoObject.video = 'https://qiniu.00yuyin.com/233333.mp4';
-            let player = new ckplayer(this.videoObject);
+            this.videoObject.video = "http://livepull.00yuyin.com/live/738115_1584356229.flv";
+            var player = new ckplayer(this.videoObject);
 
             /*var videoObject = {
                 container: '#video', //容器的ID或className

@@ -5,18 +5,18 @@
         <Icon :type="switchUpAndDown"></Icon>
       </Button>
       <DropdownMenu v-if="isLogin" slot="list">
-        <DropdownItem>个人中心</DropdownItem>
-        <DropdownItem>我的贵族</DropdownItem>
-        <DropdownItem>我的消息</DropdownItem>
-        <DropdownItem>我的直播</DropdownItem>
-        <DropdownItem><span @click="btnLogout">退出登录</span></DropdownItem>
+        <DropdownItem><p @click="routerTo('personal')">个人中心</p></DropdownItem>
+        <DropdownItem><p @click="routerTo('noble')">我的贵族</p></DropdownItem>
+        <DropdownItem><p @click="routerTo('message')">我的消息</p></DropdownItem>
+        <DropdownItem><p @click="routerTo('live')">我的直播</p></DropdownItem>
+        <DropdownItem><p @click="btnLogout">退出登录</p></DropdownItem>
       </DropdownMenu>
     </Dropdown>
     <Modal v-model="modal1">
       <div slot="header"></div>
       <div class="login">
         <div class="login-con">
-          <Card icon="log-in" title="欢迎登录" :bordered="false" dis-hover>
+          <Card icon="log-in" :title="titleOfModal" :bordered="false" dis-hover>
             <div class="form-con">
               <login-form @on-success-valid="handleSubmit"></login-form>
               <p class="login-tip">请输入正确的用户名和密码</p>
@@ -37,6 +37,7 @@
         name: "clickToLogin",
         data() {
             return {
+                titleOfModal:'欢迎登录',
                 modal1: false,
                 isLogin: false,
                 userName: '登录',
@@ -46,7 +47,18 @@
                     userAvatar: '',
                     Authorization: '',
                     UID: ''
+                },
+                routerInThisPage:{
+                    personal: '/Personal',
+                    live:'/MyLive',
+                    message:'/MyMessage',
+                    noble:'/MyNoble'
                 }
+            }
+        },
+        watch:{
+            userName: function (newVal,oldVal) {
+                console.log('clickToLogin页面'+ newVal + oldVal)
             }
         },
         computed: {},
@@ -112,7 +124,15 @@
             btnLogout() {
                 sessionStorage.clear();
                 location.reload();
-            }
+            },
+            routerTo(p){
+                if (this.$route.path === this.routerInThisPage[p]){
+                    return
+                }
+                this.$router.push(this.routerInThisPage[p]).catch(err => {
+                    console.log('输出报错',err)
+                });
+            },
         }
     }
 </script>

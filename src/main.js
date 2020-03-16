@@ -24,6 +24,7 @@ Vue.use(new VueSocketIO({
   }
 }));
 
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
@@ -31,4 +32,14 @@ new Vue({
   store,
   components: {App},
   template: '<App/>',
+
+  watch: {
+    $route: {
+      handler: function(val, oldVal){
+        console.log('路由监控watch: '+ 'from ' + oldVal.path + ' to ' + val.path);
+      },
+      // 深度观察监听
+      deep: true
+    }
+  },
 });

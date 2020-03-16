@@ -1,7 +1,7 @@
 <template>
   <div>
     <main-header></main-header>
-    <page-body></page-body>
+    <my-live></my-live>
     <main-footer></main-footer>
   </div>
 </template>
@@ -9,19 +9,20 @@
 <script>
     import mainFooter from "../../components/main-footer/mainFooter";
     import mainHeader from "../../components/main-header/mainHeader";
-    import PageBody from "./components/page";
+    import MyLive from "./components/MyLive";
 
     export default {
-        name: "pageSocket",
+        name: "PageMyLive",
+
         data(){
             return{
 
             }
         },
-        components: {
-            PageBody,
+        components:{
+            mainFooter,
             mainHeader,
-            mainFooter
+            MyLive
         }
     }
 </script>

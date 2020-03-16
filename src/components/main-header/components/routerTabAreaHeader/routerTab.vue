@@ -20,6 +20,8 @@
 </template>
 
 <script>
+    import {mapMutations,mapState} from "vuex";
+
     export default {
         name: "routerTab",
         data () {
@@ -29,16 +31,31 @@
             }
         },
 
+        computed:{
+            //为什么要使用...mapState
+            ...mapState({
+                routersNoAuthor:'routersNoAuthor',
+                activeName: 'activeName'
+            }),
+        },
+
         mounted(){
-            let activeName = this.$store.state.activeName;
+            if (this.routersNoAuthor.indexOf(this.$route.path)  === -1){
+                this.changeActiveTab('')
+            } else {
+                this.changeActiveTab(this.routersNoAuthor.indexOf(this.$route.path)+1);
+            }
+
+            let activeName = this.activeName;
             console.log('选择的路由tab是: '+activeName);
-            this.onSelectName = activeName;
+            this.onSelectName = ''+activeName;
         },
 
         methods:{
+            ...mapMutations(['changeActiveTab']),
             changeSelectName(name){
-                this.$store.commit('changeActiveTab',name);
-                this.onSelectName=this.$store.state.activeName;
+                this.changeActiveTab(name);
+                this.onSelectName = '' + this.activeName;
             }
 
         }

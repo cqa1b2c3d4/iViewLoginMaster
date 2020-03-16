@@ -1,7 +1,7 @@
 <template>
   <div>
     <main-header></main-header>
-    <page-body></page-body>
+    <my-message></my-message>
     <main-footer></main-footer>
   </div>
 </template>
@@ -9,19 +9,20 @@
 <script>
     import mainFooter from "../../components/main-footer/mainFooter";
     import mainHeader from "../../components/main-header/mainHeader";
-    import PageBody from "./components/page";
+    import MyMessage from "./components/MyMessage";
 
     export default {
-        name: "pageSocket",
+        name: "PageMyMessage",
+
         data(){
             return{
 
             }
         },
-        components: {
-            PageBody,
+        components:{
+            mainFooter,
             mainHeader,
-            mainFooter
+            MyMessage
         }
     }
 </script>
