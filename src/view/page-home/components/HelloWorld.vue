@@ -66,7 +66,7 @@
                     {
                         id: '340292',
                         nickName: '夏诗沫直播回放',
-                        url: 'https://qiniu.00yuyin.com/233333.mp4',
+                        url: 'http://livepull.00yuyin.com/live/692370_1584410035.flv',
                         avatar: 'https://qiniu.9kyouxi.com/20190604/5cf609bdf0d4c.jpg'
                     },
                     {
@@ -92,7 +92,7 @@
         },
         mounted() {
             this.videoObject.video = this.testLiveUrl;
-            var player = new ckplayer(this.videoObject);
+            let player = new ckplayer(this.videoObject);
         },
         methods: {
             ...mapMutations(['changeActiveTab']),

@@ -95,7 +95,7 @@
                 ]
             };
             // 定义一个对象
-            var player = new ckplayer(videoObject);*/
+            var player = new $_ckplayer(videoObject);*/
 
         },
         methods:{
