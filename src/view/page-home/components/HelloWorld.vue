@@ -14,7 +14,8 @@
     <h2>测试链接</h2>
     <ul>
       <li>
-        <a @click="resetTabName">socket test page</a>
+        <router-link to="/socketTest" @click="resetTabName">socket test page by router-link</router-link>
+        <!--<a @click="resetTabName">socket test page</a>-->
       </li>
       <li>
         <a href="javascript:void(0)" @click="tokenTest">token接口测试</a>
@@ -119,7 +120,7 @@
             },
             resetTabName() {
                 this.changeActiveTab('4');
-                this.$router.push('/socketTest')
+               /* this.$router.push('/socketTest')*/ //使用router-link可以直接导航到对应页面，不需要router.push
             }
         }
     }

@@ -31,13 +31,13 @@
 
 <script>
     import loginForm from "./login-form"; // 驼峰命名法
-    import {mapMutations} from 'vuex';
+    import {mapMutations, mapState} from 'vuex';
 
     export default {
         name: "clickToLogin",
         data() {
             return {
-                titleOfModal:'欢迎登录',
+                titleOfModal: '欢迎登录',
                 modal1: false,
                 isLogin: false,
                 userName: '登录',
@@ -48,20 +48,21 @@
                     Authorization: '',
                     UID: ''
                 },
-                routerInThisPage:{
+                routerInThisPage: {
                     personal: '/Personal',
-                    live:'/MyLive',
-                    message:'/MyMessage',
-                    noble:'/MyNoble'
+                    live: '/MyLive',
+                    message: '/MyMessage',
+                    noble: '/MyNoble'
                 }
             }
         },
-        watch:{
-            userName: function (newVal,oldVal) {
-                console.log('clickToLogin页面'+ newVal + oldVal)
+        watch: {
+            userName: function (newVal, oldVal) {
+                console.log('clickToLogin页面' + newVal + oldVal)
             }
         },
-        computed: {},
+        computed: {
+        },
         mounted() {
             let token = sessionStorage.getItem('TOKEN');
             if (token === null || token === '') {
@@ -76,7 +77,7 @@
             loginForm
         },
         methods: {
-            ...mapMutations(['changeLogin']),
+            ...mapMutations(['changeLogin', 'changeActiveTab']),
             handleSubmit({username, password}) {
                 let _this = this;
                 this.$api.api_login.post_user_login_api(
@@ -125,12 +126,13 @@
                 sessionStorage.clear();
                 location.reload();
             },
-            routerTo(p){
-                if (this.$route.path === this.routerInThisPage[p]){
+            routerTo(p) {
+                this.changeActiveTab('');
+                if (this.$route.path === this.routerInThisPage[p]) {
                     return
                 }
                 this.$router.push(this.routerInThisPage[p]).catch(err => {
-                    console.log('输出报错',err)
+                    console.log('输出报错', err)
                 });
             },
         }

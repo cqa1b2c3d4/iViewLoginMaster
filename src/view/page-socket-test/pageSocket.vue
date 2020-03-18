@@ -1,14 +1,13 @@
 <template>
   <div>
-    <main-header></main-header>
+
     <page-body></page-body>
-    <main-footer></main-footer>
+
   </div>
 </template>
 
 <script>
-    import mainFooter from "../../components/main-footer/mainFooter";
-    import mainHeader from "../../components/main-header/mainHeader";
+
     import PageBody from "./components/page";
 
     export default {
@@ -20,8 +19,7 @@
         },
         components: {
             PageBody,
-            mainHeader,
-            mainFooter
+
         }
     }
 </script>

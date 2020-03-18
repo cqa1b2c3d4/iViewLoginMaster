@@ -1,16 +1,24 @@
 <template>
 	<div id="app">
+    <main-header></main-header>
 		<router-view></router-view>
+    <main-footer></main-footer>
 	</div>
 </template>
 
 <script>
+  import mainHeader from "./components/main-header/mainHeader";
+  import mainFooter from "./components/main-footer/mainFooter";
     export default {
         name: 'App',
         data:function () {
             return{
 
             }
+        },
+        components:{
+            mainHeader,
+            mainFooter
         }
     }
 </script>

@@ -1,13 +1,21 @@
 <template>
   <div>
-    <div><p>这是"我的消息"页面</p></div>
+    <div><p>这是"我的消息"页面{{propsList}}</p></div>
     <div id="video3"></div>
+    <slot name="slot1"><p >这是一个命名slot的后备，name为slot1</p></slot>
+    <slot name="slot2"><p>这是一个命名slot的后备，name为slot2</p></slot>
   </div>
 </template>
 
 <script>
     export default {
         name: "MyMessage",
+        props: {
+            propsList:{
+                type: Object,
+            },
+
+        },
         data() {
             return {
                 videoObject: {
@@ -19,6 +27,7 @@
                     flashPlayer: true,
                     video: "http://livepull.00yuyin.com/live/692370_1584410035.flv"//视频地址(必填)
                 },
+                slotTestData:'slot test data in son'
             }
         },
 

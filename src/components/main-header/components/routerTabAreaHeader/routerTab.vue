@@ -1,5 +1,5 @@
 <template>
-  <Menu mode="horizontal" @on-select="changeSelectName" :theme="theme" :active-name="onSelectName">
+  <Menu mode="horizontal" @on-select="changeSelectName" :theme="theme" :active-name="onSelectedName">
     <MenuItem name="1" to="/">
       <Icon type="ios-paper" />
       首页
@@ -27,16 +27,19 @@
         data () {
             return {
                 theme: 'light',
-                onSelectName:'1'
             }
         },
 
         computed:{
-            //为什么要使用...mapState
+            //为什么要使用...mapState, 对象结构，如果在...mapState之前还有其他计算属性，可以直接结构到同一个computed对象中
             ...mapState({
                 routersNoAuthor:'routersNoAuthor',
                 activeName: 'activeName'
             }),
+            onSelectedName(){
+                let activeName = this.activeName;
+                return ''+ activeName;
+            }
         },
 
         mounted(){
@@ -45,17 +48,12 @@
             } else {
                 this.changeActiveTab(this.routersNoAuthor.indexOf(this.$route.path)+1);
             }
-
-            let activeName = this.activeName;
-            console.log('选择的路由tab是: '+activeName);
-            this.onSelectName = ''+activeName;
         },
 
         methods:{
             ...mapMutations(['changeActiveTab']),
             changeSelectName(name){
                 this.changeActiveTab(name);
-                this.onSelectName = '' + this.activeName;
             }
 
         }
