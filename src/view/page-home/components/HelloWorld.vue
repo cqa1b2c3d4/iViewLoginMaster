@@ -1,6 +1,10 @@
 <template>
   <div class="hello">
     <div class="live-show-container">
+      <div class="enterLiveRoom">
+        <!-- <router-link :to="dynamicRoute">进入直播间</router-link>-->
+        <a :href="dynamicRoute">进入直播间</a>
+      </div>
       <div id="video"></div>
       <div class="live-list">
         <ul>
@@ -14,7 +18,7 @@
     <h2>测试链接</h2>
     <ul>
       <li>
-        <router-link to="/socketTest" @click="resetTabName">socket test page by router-link</router-link>
+        <router-link to="/socketTest" @click.native="resetTabName">socket test page by router-link</router-link>
         <!--<a @click="resetTabName">socket test page</a>-->
       </li>
       <li>
@@ -33,16 +37,17 @@
         data() {
             return {
                 clickIndex: 0,
+                dynamicRoute: '/',
                 testLiveUrl: 'https://qiniu.00yuyin.com/233333.mp4',
                 videoObject: {
                     container: "#video", //“#”代表容器的ID，“.”或“”代表容器的class
                     variable: "player", //该属性必需设置，值等于下面的new chplayer()的对象
                     autoplay: true, //自动播放
                     live: true,
-/*                    loop: false,
-                    debug: true, //是否开启调试模式
-                    drag: 'start', //拖动的属性
-                    seek: 0, //默认跳转的时间*/
+                    /*                    loop: false,
+                                        debug: true, //是否开启调试模式
+                                        drag: 'start', //拖动的属性
+                                        seek: 0, //默认跳转的时间*/
                     video: "" //视频地址(必填)
                 },
                 liveList: [
@@ -92,6 +97,7 @@
             }
         },
         mounted() {
+            this.dynamicRoute = '/live/' + this.liveList[this.clickIndex].id;
             this.videoObject.video = this.testLiveUrl;
             let player = new ckplayer(this.videoObject);
         },
@@ -101,6 +107,7 @@
                 this.clickIndex = index;
                 this.videoObject.video = this.liveList[index].url;
                 let player = new ckplayer(this.videoObject);
+                this.dynamicRoute = '/live/' + this.liveList[index].id;
 
             },
             tokenTest() {
@@ -120,7 +127,8 @@
             },
             resetTabName() {
                 this.changeActiveTab('4');
-               /* this.$router.push('/socketTest')*/ //使用router-link可以直接导航到对应页面，不需要router.push
+                console.log('router-link click 事件发送')
+                /* this.$router.push('/socketTest')*/ //使用router-link可以直接导航到对应页面，不需要router.push
             }
         }
     }
@@ -194,8 +202,18 @@
   }
 
   .live-show-container {
+    position: relative;
     margin: 0 auto;
     width: 70%;
     height: 500px;
+  }
+
+  .enterLiveRoom {
+    position: absolute;
+    width: 100px;
+    height: 20px;
+    left: 37%;
+    top: 240px;
+    z-index: 999999;
   }
 </style>

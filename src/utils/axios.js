@@ -7,7 +7,7 @@ axios.interceptors.request.use((request) => {
   //在发送请求之前做某件事
   /*var token =  sessionStorage.getItem('TOKEN');
   if (token) {
-    request.headers.common['Authorization'] = token;
+    request.headers.common['token'] = token;
   }*/
   if(request.method  === 'post'){
     request.data = qs.stringify(request.data);

@@ -1,6 +1,6 @@
 <template>
 
-  <div>直播间页面</div>
+  <div>直播间页面,房间号：{{$route.params.id}}</div>
 </template>
 
 <script>
@@ -8,7 +8,6 @@
         name: "PageLiveRoom",
         data(){
             return{
-                id:'23333'
             }
         }
     }

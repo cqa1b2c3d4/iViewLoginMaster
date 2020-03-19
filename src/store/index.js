@@ -21,13 +21,6 @@ const store = new Vuex.Store({
     },
     activeName: '1',
     routersNoAuthor: ['/','/APPDownload','/chargeCenter','/socketTest'],
-    addRouters: [
-      {
-        path: '/Personal',
-        name: 'PagePersonalCenter',
-        component: resolve=>(["../view/page-personal-center/PagePersonalCenter",resolve])
-      },
-    ]
   },
 
   mutations: {
