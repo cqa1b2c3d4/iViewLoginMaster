@@ -41,6 +41,7 @@
     max-width: 1400px;
     height: 80px;
     margin: 0 auto;
+    background-color: #fff;
   }
 
   #headerContainer {

@@ -15,7 +15,6 @@ const api_login = {
   },
 
   token_test(){
-    var _fields = {city:'chongqing'};
     var data = {
       uid: '737985',
       token: sessionStorage.getItem('TOKEN') ? sessionStorage.getItem('TOKEN') : '',

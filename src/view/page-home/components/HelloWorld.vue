@@ -70,10 +70,10 @@
                         avatar: 'http://qiniu.9kyouxi.com/20200112144018_aa4855d1ce56cc4a0d5f52645912cf5b?imageView2/2/w/600/h/600'
                     },
                     {
-                        id: '340292',
-                        nickName: '夏诗沫直播回放',
+                        id: '692370',
+                        nickName: '蒹葭苍苍',
                         url: 'http://livepull.00yuyin.com/live/692370_1584410035.flv',
-                        avatar: 'https://qiniu.9kyouxi.com/20190604/5cf609bdf0d4c.jpg'
+                        avatar: 'https://qiniu.9kyouxi.com/20200225/5e54c6c559b91.jpg?imageView2/2/w/600/h/600'
                     },
                     {
                         id: '340293',

@@ -34,6 +34,6 @@
 		height: 100%;
 		margin: 0;
 		padding: 0;
-		background-color: #ffffff;
+		background-color: #f7f7f7;
 	}
 </style>

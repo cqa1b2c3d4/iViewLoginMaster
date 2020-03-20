@@ -13,5 +13,6 @@
 </script>
 
 <style scoped>
-
+.footer{
+}
 </style>
