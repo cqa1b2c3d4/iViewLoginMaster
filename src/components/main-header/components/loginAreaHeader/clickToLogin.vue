@@ -1,7 +1,7 @@
 <template>
   <div>
     <Dropdown trigger="click" style="margin-left: 20px" @on-visible-change="visible">
-      <Button class="focus-none" type="text" @click="btnClick">{{userName}}
+      <Button class="focus-none" type="text" @click="btnClick">{{computeUserName}}
         <Icon :type="switchUpAndDown"></Icon>
       </Button>
       <DropdownMenu v-if="isLogin" slot="list">
@@ -40,7 +40,6 @@
                 titleOfModal: '欢迎登录',
                 modal1: false,
                 isLogin: false,
-                userName: '登录',
                 switchUpAndDown: 'ios-arrow-up',
                 userInfo: {
                     nickName: '',
@@ -57,22 +56,37 @@
             }
         },
         watch: {
-            userName: function (newVal, oldVal) {
+            computeUserName: function (newVal, oldVal) {
+                if (oldVal !== '登录' && newVal === '登录'){
+                    alert('登录状态失效，请重新登录')
+                }
                 console.log('clickToLogin页面' + newVal + oldVal)
             }
         },
         computed: {
-        },
-        mounted() {
-            let token = sessionStorage.getItem('TOKEN');
-            if (token === null || token === '') {
-                this.userName = "登录";
-                this.isLogin = true;
-            } else {
-                this.userName = this.$store.state.nickName;
-                this.isLogin = false;
+            ...mapState({
+                Authorization:'Authorization',
+                TokenStatus: 'TokenStatus',
+                nickName: 'nickName'
+            }),
+            computeUserName(){
+                if (this.Authorization === null || this.Authorization === ''){
+                    return '登录';
+                } else{
+                    if (this.TokenStatus === true) {
+                        return this.nickName;
+                    } else if(this.TokenStatus === false){
+                        return '登录';
+                    }
+                }
+
             }
         },
+
+        mounted() {
+
+        },
+
         components: {
             loginForm
         },
@@ -102,7 +116,7 @@
                 })
             },
             btnClick() {
-                if (this.userName === '登录') {
+                if (this.computeUserName === '登录') {
                     this.modal1 = true;
                     this.isLogin = false;
                 } else {

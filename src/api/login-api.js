@@ -28,6 +28,17 @@ const api_login = {
     })
   },
 
+  checkToken(data){
+    return axios({
+      url: 'http://www.00yuyin.com/api/public/appapi/?service=User.Iftoken',
+      method: 'POST',
+      data: {
+        uid: data.uid,
+        token: data.token
+      },
+    })
+  }
+
 };
 
 export default api_login

@@ -13,6 +13,7 @@ const state = {
     token: ''
   },
   activeName: '1',
+  TokenStatus: '',
   routersNoAuthor: ['/','/APPDownload','/chargeCenter','/socketTest'],
 };
 

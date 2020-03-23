@@ -8,6 +8,7 @@
       <div class="live-room-chat">
         <live-chat-area></live-chat-area>
       </div>
+      <router-link to="/live/34029">到小月的直播间</router-link>
     </div>
   </div>
 </template>
@@ -35,14 +36,14 @@
       LiveChatArea
     },
 
-    beforeRouteLeave(to, from, next) {
+    /*beforeRouteLeave(to, from, next) {
       const leave = confirm('您确定要离开吗？')
       if(leave){
         next();
       } else {
         next(false);
       }
-    }
+    }*/
   }
 </script>
 

@@ -12,11 +12,18 @@ const getters = {
 
 }
 
-const mutations = {}
+const mutations = {
+  changeAppName(state,newName){
+    state.appName = newName;
+  }
+};
 
 export default {
   state,
   actions,
   mutations,
-  getters
+  getters,
+  modules:{
+    //
+  }
 }

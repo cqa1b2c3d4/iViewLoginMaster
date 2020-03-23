@@ -26,6 +26,9 @@ const mutations = {
   },
   setAppAuthor(state,data) {
     vue.set(state,'appAuthor',data);
+  },
+  setTokenStatus(state,data) {
+    vue.set(state,'TokenStatus',data);
   }
 };
 
