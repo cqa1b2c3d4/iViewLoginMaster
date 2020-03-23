@@ -1,9 +1,9 @@
 <template>
   <div class="live-room">
-    <div>直播间页面,房间号：{{$route.params.id}}</div>
+    <div>直播间页面,房间号：{{id}}</div>
     <div class="live-room-container">
       <div class="live-room-play">
-        <live-play-area></live-play-area>
+        <live-play-area :id="id"></live-play-area>
       </div>
       <div class="live-room-chat">
         <live-chat-area></live-chat-area>
@@ -13,19 +13,37 @@
 </template>
 
 <script>
-    import LivePlayArea from "./components/live-play-window/LivePlayArea";
-    import LiveChatArea from "./components/live-chat-window/LiveChatArea";
+  import LivePlayArea from "./components/live-play-window/LivePlayArea";
+  import LiveChatArea from "./components/live-chat-window/LiveChatArea";
 
-    export default {
-        name: "PageLiveRoom",
-        data() {
-            return {}
-        },
-        components: {
-            LivePlayArea,
-            LiveChatArea
-        }
+  export default {
+    name: "PageLiveRoom",
+    data() {
+      return {
+        testId: '123456'
+      }
+    },
+    props: {
+      id:{
+        type: String,
+        default: '12345'
+      }
+    },
+
+    components: {
+      LivePlayArea,
+      LiveChatArea
+    },
+
+    beforeRouteLeave(to, from, next) {
+      const leave = confirm('您确定要离开吗？')
+      if(leave){
+        next();
+      } else {
+        next(false);
+      }
     }
+  }
 </script>
 
 <style scoped>

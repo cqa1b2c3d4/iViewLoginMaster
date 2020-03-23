@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import {routes} from './routes'
+import {setTitle} from "@/lib/util";
 
 Vue.use(Router);
 
@@ -14,10 +15,11 @@ const router = new Router({
 // 使用 router.beforeEach 注册一个全局前置守卫，判断用户是否登陆
 router.beforeEach((to, from, next) => {
   var token = sessionStorage.getItem('TOKEN');
-  if (from.path.indexOf('live') !== -1 && to.path.indexOf('live') === -1){
+  if (from.path.indexOf('live') !== -1 && to.path.indexOf('live') === -1) {
     next();
-location.reload();
+    location.reload();
   }
+  to.meta && setTitle(to.meta.title);
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (token === null || token === '') {
       console.log('没有拿到token');

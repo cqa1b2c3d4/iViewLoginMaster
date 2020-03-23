@@ -9,8 +9,10 @@ import 'view-design/dist/styles/iview.css';
 import apiAll from "./api";
 import VueSocketIO from 'vue-socket.io';
 import VueCookies from 'vue-cookies';
+import bus from "./bus";
 
 Vue.prototype.$api = apiAll;
+Vue.prototype.$bus = bus;
 Vue.use(ViewUI);
 Vue.use(VueCookies);
 Vue.config.productionTip = false;
