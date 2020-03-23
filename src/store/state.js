@@ -15,6 +15,7 @@ const state = {
   activeName: '1',
   TokenStatus: '',
   routersNoAuthor: ['/','/APPDownload','/chargeCenter','/socketTest'],
+  stateValue:'abc',
 };
 
 export default state

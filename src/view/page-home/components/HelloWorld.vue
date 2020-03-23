@@ -37,6 +37,13 @@
         <p>appAuthor: {{appAuthor}}</p>
         <button @click="changeAppName('Trump')">changeAppName</button>
         <button @click="clickToChangeAppName">click to action</button>
+        <button @click="registerModule">动态注册模块</button>
+        <p v-for="(li, index) in todoList" :key="index">{{li}}</p>
+      </li>
+      <li>
+<!--        <input :value="stateValue" @input="stateValueChange($event.target.value)"></input>-->
+        <input v-model="stateValue"></input>
+        <p>{{stateValue}}</p>
       </li>
     </ul>
   </div>
@@ -44,131 +51,157 @@
 
 <script>
 
-    import {mapState, mapMutations, mapGetters, mapActions} from "vuex";
-    import {checkTokenStatus} from '@/lib/util'
+  import {mapState, mapMutations, mapGetters, mapActions} from "vuex";
+  import {checkTokenStatus} from '@/lib/util'
 
-    export default {
-        name: 'helloWorld',
-        data() {
-            return {
-                clickIndex: 0,
-                author: 'Andrew',
-                dynamicRoute: '/',
-                testLiveUrl: 'https://qiniu.00yuyin.com/233333.mp4',
-                videoObject: {
-                    container: "#video", //“#”代表容器的ID，“.”或“”代表容器的class
-                    variable: "player", //该属性必需设置，值等于下面的new chplayer()的对象
-                    autoplay: false, //自动播放
-                    live: true,
-                    /*                    loop: false,
-                                        debug: true, //是否开启调试模式
-                                        drag: 'start', //拖动的属性
-                                        seek: 0, //默认跳转的时间*/
-                    video: "" //视频地址(必填)
-                },
-                liveList: [
-                    {
-                        id: '34029',
-                        nickName: '夏诗沫直播回放',
-                        url: 'https://qiniu.00yuyin.com/233333.mp4',
-                        avatar: 'https://qiniu.9kyouxi.com/20190604/5cf609bdf0d4c.jpg'
-                    },
-                    {
-                        id: '738115',
-                        nickName: '顺顺宝贝',
-                        url: 'http://livepull.00yuyin.com/live/738115_1584356229.flv', //张靓颖《我的梦》
-                        avatar: 'http://qiniu.9kyouxi.com/20191209175211_92fbe3c38ef9387116ebef81413013d1?imageView2/2/w/600/h/600'
-                    },
-                    {
-                        id: '738045',
-                        nickName: '是娜娜呀～',
-                        url: 'http://livepull.00yuyin.com/live/738045_1584356381.flv',
-                        avatar: 'http://qiniu.9kyouxi.com/20200112144018_aa4855d1ce56cc4a0d5f52645912cf5b?imageView2/2/w/600/h/600'
-                    },
-                    {
-                        id: '692370',
-                        nickName: '蒹葭苍苍',
-                        url: 'http://livepull.00yuyin.com/live/692370_1584410035.flv',
-                        avatar: 'https://qiniu.9kyouxi.com/20200225/5e54c6c559b91.jpg?imageView2/2/w/600/h/600'
-                    },
-                    {
-                        id: '340293',
-                        nickName: '夏诗沫直播回放',
-                        url: 'https://qiniu.00yuyin.com/233333.mp4',
-                        avatar: 'https://qiniu.9kyouxi.com/20190604/5cf609bdf0d4c.jpg'
-                    }
-                ],
-            }
+  export default {
+    name: 'helloWorld',
+    data() {
+      return {
+        clickIndex: 0,
+        author: 'Andrew',
+        dynamicRoute: '/',
+        testLiveUrl: 'https://qiniu.00yuyin.com/233333.mp4',
+        videoObject: {
+          container: "#video", //“#”代表容器的ID，“.”或“”代表容器的class
+          variable: "player", //该属性必需设置，值等于下面的new chplayer()的对象
+          autoplay: false, //自动播放
+          live: true,
+          /*                    loop: false,
+                              debug: true, //是否开启调试模式
+                              drag: 'start', //拖动的属性
+                              seek: 0, //默认跳转的时间*/
+          video: "" //视频地址(必填)
         },
-        computed: {
-            userName() {
-                let token = sessionStorage.getItem('TOKEN');
-                if (token === null || token === '') {
-                    return "登录";
-                } else {
-                    this.login = 'javascript:void(0)';
-                    console.log(this.$store.state);
-                    return this.$store.state.nickName;
-                }
-            },
-            ...mapGetters([
-                'UIDWithToken',
-                'appNameWithVersion',
-            ]),
-            ...mapState( /*[
+        liveList: [
+          {
+            id: '34029',
+            nickName: '夏诗沫直播回放',
+            url: 'https://qiniu.00yuyin.com/233333.mp4',
+            avatar: 'https://qiniu.9kyouxi.com/20190604/5cf609bdf0d4c.jpg'
+          },
+          {
+            id: '738115',
+            nickName: '顺顺宝贝',
+            url: 'http://livepull.00yuyin.com/live/738115_1584356229.flv', //张靓颖《我的梦》
+            avatar: 'http://qiniu.9kyouxi.com/20191209175211_92fbe3c38ef9387116ebef81413013d1?imageView2/2/w/600/h/600'
+          },
+          {
+            id: '738045',
+            nickName: '是娜娜呀～',
+            url: 'http://livepull.00yuyin.com/live/738045_1584356381.flv',
+            avatar: 'http://qiniu.9kyouxi.com/20200112144018_aa4855d1ce56cc4a0d5f52645912cf5b?imageView2/2/w/600/h/600'
+          },
+          {
+            id: '692370',
+            nickName: '蒹葭苍苍',
+            url: 'http://livepull.00yuyin.com/live/692370_1584410035.flv',
+            avatar: 'https://qiniu.9kyouxi.com/20200225/5e54c6c559b91.jpg?imageView2/2/w/600/h/600'
+          },
+          {
+            id: '340293',
+            nickName: '夏诗沫直播回放',
+            url: 'https://qiniu.00yuyin.com/233333.mp4',
+            avatar: 'https://qiniu.9kyouxi.com/20190604/5cf609bdf0d4c.jpg'
+          }
+        ],
+      }
+    },
+    computed: {
+      userName() {
+        let token = sessionStorage.getItem('TOKEN');
+        if (token === null || token === '') {
+          return "登录";
+        } else {
+          this.login = 'javascript:void(0)';
+          console.log(this.$store.state);
+          return this.$store.state.nickName;
+        }
+      },
+      ...mapGetters([
+        'UIDWithToken',
+        'appNameWithVersion',
+      ]),
+      ...mapState( /*[
         'appName',
         'appVersion'
       ]*/
-                {
-                    appName: state => state.user.appName,
-                    appVersion: state => state.user.appVersion,
-                    appAuthor: state => state.appAuthor,
-                }
-            )
-        },
-        mounted() {
-            this.dynamicRoute = '/live/' + this.liveList[this.clickIndex].id;
-            this.videoObject.video = this.testLiveUrl;
-            let player = new ckplayer(this.videoObject);
-        },
-        methods: {
-            ...mapMutations(['changeActiveTab', 'setAppAuthor', 'changeAppName']),
-            ...mapActions(['updateAppName']),
-            clickThisLive(index) {
-                this.clickIndex = index;
-                this.videoObject.video = this.liveList[index].url;
-                let player = new ckplayer(this.videoObject);
-                this.dynamicRoute = '/live/' + this.liveList[index].id;
-
-            },
-            tokenTest() {
-                console.log('start token test');
-                let token = sessionStorage.getItem('TOKEN');
-                if (token !== null && token !== '') {
-                    console.log('token exist, start connect to api');
-                    this.$api.api_login.token_test().then((response) => {
-                        let _data = response.data;
-                        console.log(_data);
-                    }).catch((error) => {
-                        console.log(error)
-                    })
-
-                }
-
-            },
-            resetTabName() {
-                this.changeActiveTab('4');
-                console.log('router-link click 事件发送')
-                /* this.$router.push('/socketTest')*/ //使用router-link可以直接导航到对应页面，不需要router.push
-            },
-            clickToChangeAppName(){
-                /*this.updateAppName();*/
-                checkTokenStatus();
-                this.$store.dispatch('updateAppName');
-            },
-            //
-        }
+        {
+          appName: state => state.user.appName,
+          appVersion: state => state.user.appVersion,
+          appAuthor: state => state.appAuthor,
+          todoList: state => state.user.todo ? state.user.todo.todoList : [],
+/*          stateValue: state => state.stateValue,*/
     }
+      ),
+      stateValue: {
+        get(){
+          return this.$store.state.stateValue;
+        },
+        set(val){
+          this.setStateValue(val)
+        }
+
+      },
+    },
+    mounted() {
+      this.dynamicRoute = '/live/' + this.liveList[this.clickIndex].id;
+      this.videoObject.video = this.testLiveUrl;
+      let player = new ckplayer(this.videoObject);
+    },
+    methods: {
+      ...mapMutations(['changeActiveTab', 'setAppAuthor', 'changeAppName','setStateValue']),
+      ...mapActions(['updateAppName']),
+      registerModule() {
+        this.$store.registerModule(['user','todo'], {
+          state: {
+            todoList: [
+              '学习mutations',
+              '学习actions'
+            ]
+          }
+        })
+      },
+
+      clickThisLive(index) {
+        this.clickIndex = index;
+        this.videoObject.video = this.liveList[index].url;
+        let player = new ckplayer(this.videoObject);
+        this.dynamicRoute = '/live/' + this.liveList[index].id;
+
+      },
+      tokenTest() {
+        console.log('start token test');
+        let token = sessionStorage.getItem('TOKEN');
+        if (token !== null && token !== '') {
+          console.log('token exist, start connect to api');
+          this.$api.api_login.token_test().then((response) => {
+            let _data = response.data;
+            console.log(_data);
+          }).catch((error) => {
+            console.log(error)
+          })
+
+        }
+
+      },
+      resetTabName() {
+        this.changeActiveTab('4');
+        console.log('router-link click 事件发送')
+        /* this.$router.push('/socketTest')*/ //使用router-link可以直接导航到对应页面，不需要router.push
+      },
+      clickToChangeAppName() {
+        /*this.updateAppName();*/
+        checkTokenStatus();
+        this.$store.dispatch('updateAppName');
+      },
+      stateValueChange(val){
+        console.log(val);
+        this.setStateValue(val)
+      }
+      //
+    }
+  }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

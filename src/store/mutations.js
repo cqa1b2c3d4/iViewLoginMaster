@@ -29,6 +29,9 @@ const mutations = {
   },
   setTokenStatus(state,data) {
     vue.set(state,'TokenStatus',data);
+  },
+  setStateValue(state, val){
+    state.stateValue = val;
   }
 };
 
