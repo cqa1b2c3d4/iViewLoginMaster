@@ -8,7 +8,7 @@
       <div id="video"></div>
       <div class="live-list">
         <ul>
-          <li :class="{'active': index === clickIndex}" v-for="(item,index) in liveList" :key="item.id"
+          <li :class="{'active': index === clickIndex}" v-for="(item,index) in liveList" :key="index"
               @click="clickThisLive(index)">
             <div><img style="height: 100%; margin: 0 auto" :src="item.avatar"></div>
           </li>
@@ -41,7 +41,7 @@
         <p v-for="(li, index) in todoList" :key="index">{{li}}</p>
       </li>
       <li>
-<!--        <input :value="stateValue" @input="stateValueChange($event.target.value)"></input>-->
+        <!--        <input :value="stateValue" @input="stateValueChange($event.target.value)"></input>-->
         <input v-model="stateValue"></input>
         <p>{{stateValue}}</p>
       </li>
@@ -61,7 +61,6 @@
         clickIndex: 0,
         author: 'Andrew',
         dynamicRoute: '/',
-        testLiveUrl: 'https://qiniu.00yuyin.com/233333.mp4',
         videoObject: {
           container: "#video", //“#”代表容器的ID，“.”或“”代表容器的class
           variable: "player", //该属性必需设置，值等于下面的new chplayer()的对象
@@ -73,38 +72,7 @@
                               seek: 0, //默认跳转的时间*/
           video: "" //视频地址(必填)
         },
-        liveList: [
-          {
-            id: '34029',
-            nickName: '夏诗沫直播回放',
-            url: 'https://qiniu.00yuyin.com/233333.mp4',
-            avatar: 'https://qiniu.9kyouxi.com/20190604/5cf609bdf0d4c.jpg'
-          },
-          {
-            id: '738115',
-            nickName: '顺顺宝贝',
-            url: 'http://livepull.00yuyin.com/live/738115_1584356229.flv', //张靓颖《我的梦》
-            avatar: 'http://qiniu.9kyouxi.com/20191209175211_92fbe3c38ef9387116ebef81413013d1?imageView2/2/w/600/h/600'
-          },
-          {
-            id: '738045',
-            nickName: '是娜娜呀～',
-            url: 'http://livepull.00yuyin.com/live/738045_1584356381.flv',
-            avatar: 'http://qiniu.9kyouxi.com/20200112144018_aa4855d1ce56cc4a0d5f52645912cf5b?imageView2/2/w/600/h/600'
-          },
-          {
-            id: '692370',
-            nickName: '蒹葭苍苍',
-            url: 'http://livepull.00yuyin.com/live/692370_1584410035.flv',
-            avatar: 'https://qiniu.9kyouxi.com/20200225/5e54c6c559b91.jpg?imageView2/2/w/600/h/600'
-          },
-          {
-            id: '340293',
-            nickName: '夏诗沫直播回放',
-            url: 'https://qiniu.00yuyin.com/233333.mp4',
-            avatar: 'https://qiniu.9kyouxi.com/20190604/5cf609bdf0d4c.jpg'
-          }
-        ],
+        liveList: [],
       }
     },
     computed: {
@@ -131,29 +99,51 @@
           appVersion: state => state.user.appVersion,
           appAuthor: state => state.appAuthor,
           todoList: state => state.user.todo ? state.user.todo.todoList : [],
-/*          stateValue: state => state.stateValue,*/
-    }
+          /*          stateValue: state => state.stateValue,*/
+        }
       ),
       stateValue: {
-        get(){
+        get() {
           return this.$store.state.stateValue;
         },
-        set(val){
+        set(val) {
           this.setStateValue(val)
         }
 
       },
     },
     mounted() {
-      this.dynamicRoute = '/live/' + this.liveList[this.clickIndex].id;
-      this.videoObject.video = this.testLiveUrl;
-      let player = new ckplayer(this.videoObject);
+      let _this = this;
+      this.$api.api_live.get_hot_live().then((response) => {
+        let _data = response.data;
+        if (_data.ret === 200 && _data.data.code === 0) {
+          let _list = _data.data.info[0].list;
+          let myList = [];
+          let j = _list.length > 5 ? 5 : _list.length;
+          for (let i = 0; i < j; i++) {
+            myList[i] = _list[i];
+          }
+          _this.liveList = myList;
+          _this.dynamicRoute = '/live/' + _this.liveList[_this.clickIndex].uid;
+          _this.videoObject.video = _this.liveList[_this.clickIndex].pull;
+          let player = new ckplayer(_this.videoObject);
+          console.log(myList)
+        } else {
+          console.log('未获取到数据')
+        }
+      }).catch((error) => {
+        console.log(error)
+      });
+
     },
+
     methods: {
-      ...mapMutations(['changeActiveTab', 'setAppAuthor', 'changeAppName','setStateValue']),
+
+      ...mapMutations(['changeActiveTab', 'setAppAuthor', 'changeAppName', 'setStateValue']),
       ...mapActions(['updateAppName']),
+
       registerModule() {
-        this.$store.registerModule(['user','todo'], {
+        this.$store.registerModule(['user', 'todo'], {
           state: {
             todoList: [
               '学习mutations',
@@ -165,9 +155,9 @@
 
       clickThisLive(index) {
         this.clickIndex = index;
-        this.videoObject.video = this.liveList[index].url;
+        this.videoObject.video = this.liveList[index].pull;
         let player = new ckplayer(this.videoObject);
-        this.dynamicRoute = '/live/' + this.liveList[index].id;
+        this.dynamicRoute = '/live/' + this.liveList[index].uid;
 
       },
       tokenTest() {
@@ -195,7 +185,7 @@
         checkTokenStatus();
         this.$store.dispatch('updateAppName');
       },
-      stateValueChange(val){
+      stateValueChange(val) {
         console.log(val);
         this.setStateValue(val)
       }
