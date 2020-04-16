@@ -46,6 +46,10 @@
         <p>{{stateValue}}</p>
       </li>
     </ul>
+    <div class="lessBox">
+      <p>this is a less test box</p>
+    </div>
+    <div class="box"></div>
   </div>
 </template>
 
@@ -276,4 +280,58 @@
     top: 240px;
     z-index: 999999;
   }
+</style>
+<style lang="less">
+@color: red;
+@colorP: white;
+@width: 200px;
+@height: 300px;
+@background-color-base: black;
+@img: '/static/images/home/';
+.test(@color: red; @size: 14px){
+  background: @color;
+  font-size: @size;
+}
+
+.lessBox {
+  width: @width;
+  height: @height/3;
+  color: @color;
+  background: url("@{img}index_live_bg.png") no-repeat;
+  background-size: 100% 100%;
+  p{
+    color: @colorP;
+    .test(@color: blue; @size: 30px);
+  }
+
+
+}
+.sjx(@_,@color,@size){
+  width: 0;
+  height:0;
+  border:@size solid @color;
+  border-color:transparent;
+}
+//左边三角形
+.sjx(l,@color,@size){
+  border-left-color:@color;
+}
+//上边三角形
+.sjx(t,@color,@size){
+  border-top-color:@color;
+}
+//右边三角形
+.sjx(r,@color,@size){
+  border-right-color:@color;
+}
+//左边三角形
+.sjx(b,@color,@size){
+  border-bottom-color:@color;
+}
+//这里匹配调用
+
+.box{
+  .sjx(r,red,20px)
+}
+
 </style>

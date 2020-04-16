@@ -12,7 +12,7 @@
     }
 </script>
 
-<style scoped>
+<style lang="less">
 .footer{
 }
 </style>

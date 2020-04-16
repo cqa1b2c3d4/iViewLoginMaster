@@ -1,11 +1,10 @@
 <template>
   <div id="app">
     <main-header></main-header>
-    <transition-group name="router">
-      <router-view key="default"></router-view>
-      <router-view key="test" name="test"></router-view>
-    </transition-group>
-    <main-footer></main-footer>
+    <router-view key="default"></router-view>
+    <router-view key="test" name="test"></router-view>
+    <main-footer class="app-footer"></main-footer>
+    <div style="clear: both"></div>
   </div>
 </template>
 
@@ -25,7 +24,28 @@
   }
 </script>
 
-<style>
+<style lang="less">
+
+  body, #app {
+    height: 100%;
+  }
+
+  html {
+    box-sizing: border-box;
+    background-color: #ffffff;
+  }
+
+  body {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 1000px;
+    min-height: 1000px;
+    position: relative;
+    margin: 0;
+    padding: 0;
+    font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, SimSun, sans-serif;
+  }
+
   #app {
     box-sizing: border-box;
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -33,10 +53,13 @@
     -moz-osx-font-smoothing: grayscale;
     text-align: left;
     width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
     background-color: #f7f7f7;
+  }
+
+  .app-footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
   }
 
   .router-enter {

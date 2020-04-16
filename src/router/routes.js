@@ -8,13 +8,19 @@ import PageMyLive from "../view/PageMyLive/PageMyLive";
 import PageMyMessage from "../view/PageMyMessage/PageMyMessage";
 import PageLiveRoom from "../view/page-live-room/PageLiveRoom";
 import error404 from '@/view/error-404.vue';
-import testPage from '@/view/test-page.vue'
+import testPage from '@/view/test-page.vue';
+import layout from "../view/layout";
 
 export const routes = [
   {
     path: '/',
     name: 'pageHome',
-    component: pageHome
+    component: layout,
+    children: [
+      {path:'home',
+      component: pageHome
+      }
+    ]
   },
   {
     path: '/socketTest',
@@ -27,8 +33,11 @@ export const routes = [
       default: pageCharge,
       test: testPage
     }
-
-
+  },
+  {
+    path: '/menu_page',
+    name: 'menu_page',
+    component: () => import('@/view/menu-page.vue')
   },
   {
     path: '/APPDownload',

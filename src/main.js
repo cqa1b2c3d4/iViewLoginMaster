@@ -29,11 +29,9 @@ Vue.use(new VueSocketIO({
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
   router,
   store,
-  components: {App},
-  template: '<App/>',
+  render: h => h(App),
 
   watch: {
     $route: {
@@ -44,4 +42,4 @@ new Vue({
       deep: true
     }
   },
-});
+}).$mount('#app');
